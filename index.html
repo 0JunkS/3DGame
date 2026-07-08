@@ -225,6 +225,53 @@ canvas{display:block;position:fixed;inset:0;width:100%!important;height:100%!imp
 .diff-med{background:rgba(255,215,0,0.2);color:#FFD700}
 .diff-hard{background:rgba(247,127,0,0.2);color:#f77f00}
 .diff-ext{background:rgba(214,40,40,0.2);color:#ff6b6b}
+
+/* MINI GAME ARCADE + PAPER FLIGHT */
+#game-select{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:22px;pointer-events:all;background:radial-gradient(circle at 20% 18%,rgba(255,209,102,.22),transparent 28%),linear-gradient(155deg,rgba(7,24,38,.76),rgba(6,10,22,.94) 54%,rgba(16,37,43,.9));backdrop-filter:blur(10px)}
+#game-select.on{display:flex}
+.hub-shell{width:min(920px,100%);color:#fff}
+.hub-kicker{font-size:12px;font-weight:900;letter-spacing:3px;color:#ffd166;margin-bottom:8px;text-transform:uppercase}
+.hub-title{font-size:clamp(34px,7vw,74px);line-height:.92;font-weight:950;margin:0 0 22px;color:#f8fdff;text-shadow:0 16px 48px rgba(0,0,0,.35)}
+.game-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.game-card{position:relative;min-height:260px;overflow:hidden;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:18px;text-align:left;color:#fff;cursor:pointer;background:rgba(255,255,255,.08);box-shadow:0 22px 70px rgba(0,0,0,.32);transition:transform .16s,border-color .16s,filter .16s}
+.game-card:active{transform:scale(.98)}
+.game-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.42)}
+.game-card strong{position:relative;z-index:2;display:block;font-size:28px;font-weight:950;letter-spacing:.5px;margin-bottom:4px}
+.game-card span{position:relative;z-index:2;color:rgba(255,255,255,.72);font-size:13px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}
+.game-art{position:absolute;inset:auto 14px 12px auto;z-index:1;width:170px;height:135px;opacity:.95}
+.card-escape{background:linear-gradient(145deg,#172047,#111425 52%,#061019)}
+.card-escape .game-art{background:linear-gradient(135deg,#4cc9f0,#4361ee);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);filter:drop-shadow(0 0 28px rgba(76,201,240,.55))}
+.card-flight{background:linear-gradient(145deg,#0f2d3f,#1b6d74 58%,#ff7a59)}
+.card-flight .game-art:before{content:"";position:absolute;left:18px;top:18px;width:126px;height:88px;background:#fff;clip-path:polygon(0 42%,100% 0,68% 46%,100% 100%);box-shadow:0 20px 34px rgba(0,0,0,.2)}
+.card-flight .game-art:after{content:"";position:absolute;right:12px;top:18px;width:68px;height:7px;background:#ffd166;border-radius:99px;box-shadow:-24px 24px 0 #06d6a0,-46px 48px 0 rgba(255,255,255,.75)}
+#btn-hub{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22)}
+#flight-game{position:fixed;inset:0;z-index:100;display:none;overflow:hidden;pointer-events:all;background:#bdf3ff;color:#0f2d3f;font-family:Inter,'Apple SD Gothic Neo','Noto Sans KR',sans-serif}
+#flight-game.on{display:block}
+#flight-canvas{position:absolute;inset:0;z-index:1;width:100%!important;height:100%!important;display:block;touch-action:none;cursor:grab}
+#flight-canvas:active{cursor:grabbing}
+.flight-ui{position:absolute;inset:0;z-index:3;pointer-events:none}
+.flight-top{position:absolute;top:14px;left:14px;right:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.flight-chipset{display:flex;gap:8px;flex-wrap:wrap}
+.flight-chip{min-width:82px;background:rgba(255,255,255,.74);border:1px solid rgba(15,45,63,.1);box-shadow:0 8px 24px rgba(15,45,63,.12);border-radius:8px;padding:8px 10px;backdrop-filter:blur(10px)}
+.flight-chip small{display:block;font-size:9px;font-weight:950;letter-spacing:1.4px;color:rgba(15,45,63,.52);text-transform:uppercase;margin-bottom:2px}
+.flight-chip b{font-size:17px;line-height:1;font-weight:950;color:#0f2d3f}
+.flight-back{pointer-events:all;border:none;border-radius:8px;padding:11px 13px;font-size:13px;font-weight:950;color:#fff;background:#0f2d3f;box-shadow:0 12px 34px rgba(15,45,63,.25);cursor:pointer}
+.flight-bottom{position:absolute;left:14px;right:14px;bottom:14px;display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:stretch}
+.flight-upgrade,.flight-start{pointer-events:all;border:none;border-radius:8px;padding:11px 12px;cursor:pointer;box-shadow:0 12px 30px rgba(15,45,63,.16);font-weight:950;color:#0f2d3f;background:rgba(255,255,255,.82);text-align:left;min-height:54px}
+.flight-upgrade small{display:block;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(15,45,63,.54);font-weight:950;margin-bottom:4px}
+.flight-upgrade b{font-size:16px}.flight-upgrade em{font-style:normal;color:#ff7a59;margin-left:6px;font-size:12px}
+.flight-upgrade:disabled{opacity:.45;cursor:not-allowed}
+.flight-start{min-width:132px;text-align:center;background:#ffd166;color:#3e2b00;font-size:15px;display:flex;align-items:center;justify-content:center}
+.flight-energy{position:absolute;left:14px;right:14px;top:78px;height:9px;border-radius:99px;background:rgba(15,45,63,.14);overflow:hidden;border:1px solid rgba(255,255,255,.34)}
+#flight-energy-fill{height:100%;width:100%;background:linear-gradient(90deg,#06d6a0,#ffd166,#ff7a59);border-radius:99px;transition:width .12s}
+.flight-panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(360px,calc(100% - 34px));background:rgba(255,255,255,.86);border:1px solid rgba(15,45,63,.12);border-radius:8px;padding:20px;box-shadow:0 28px 80px rgba(15,45,63,.24);text-align:center;pointer-events:all;backdrop-filter:blur(14px)}
+.flight-panel.hidden{display:none}
+.flight-panel h2{font-size:28px;line-height:1;margin:0 0 8px;font-weight:950;color:#0f2d3f}
+.flight-panel p{margin:0 0 16px;color:rgba(15,45,63,.68);font-size:13px;font-weight:750;line-height:1.55}
+.flight-panel button{border:none;border-radius:8px;background:#ff7a59;color:#fff;padding:13px 20px;width:100%;font-weight:950;cursor:pointer;box-shadow:0 14px 32px rgba(255,122,89,.28)}
+.flight-score-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.flight-score-box{background:rgba(15,45,63,.08);border-radius:8px;padding:10px}.flight-score-box small{display:block;font-size:9px;font-weight:950;color:rgba(15,45,63,.48);letter-spacing:1.4px;text-transform:uppercase}.flight-score-box b{font-size:20px;font-weight:950}
+@media(max-width:620px){.game-grid{grid-template-columns:1fr}.game-card{min-height:188px}.hub-title{margin-bottom:16px}.flight-top{top:10px;left:10px;right:10px}.flight-chip{min-width:70px;padding:7px 8px}.flight-chip b{font-size:15px}.flight-energy{top:112px;left:10px;right:10px}.flight-bottom{left:10px;right:10px;bottom:10px;grid-template-columns:1fr 1fr}.flight-start{grid-column:1/3;min-height:48px}.flight-back{padding:9px 10px}}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"}}
@@ -233,6 +280,55 @@ canvas{display:block;position:fixed;inset:0;width:100%!important;height:100%!imp
 <body>
 <canvas id="c"></canvas>
 <div id="ui">
+  <!-- MINI GAME SELECT -->
+  <div id="game-select">
+    <div class="hub-shell">
+      <div class="hub-kicker">MINI GAME ARCADE</div>
+      <h1 class="hub-title">게임 선택</h1>
+      <div class="game-grid">
+        <button class="game-card card-escape" id="pick-escape">
+          <strong>3D ESCAPE</strong>
+          <span>PUZZLE RUN</span>
+          <i class="game-art"></i>
+        </button>
+        <button class="game-card card-flight" id="pick-flight">
+          <strong>PAPER FLIGHT</strong>
+          <span>SKY DISTANCE</span>
+          <i class="game-art"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAPER FLIGHT -->
+  <div id="flight-game">
+    <canvas id="flight-canvas"></canvas>
+    <div class="flight-ui">
+      <div class="flight-top">
+        <div class="flight-chipset">
+          <div class="flight-chip"><small>DIST</small><b id="flight-dist">0m</b></div>
+          <div class="flight-chip"><small>BEST</small><b id="flight-best">0m</b></div>
+          <div class="flight-chip"><small>STARS</small><b id="flight-stars">0</b></div>
+        </div>
+        <button class="flight-back" id="flight-back">게임 선택</button>
+      </div>
+      <div class="flight-energy"><div id="flight-energy-fill"></div></div>
+      <div class="flight-bottom">
+        <button class="flight-upgrade" id="flight-up-speed"><small>SPEED</small><b id="flight-speed-lv">Lv.1</b><em id="flight-speed-cost">80</em></button>
+        <button class="flight-upgrade" id="flight-up-accuracy"><small>ACCURACY</small><b id="flight-acc-lv">Lv.1</b><em id="flight-acc-cost">70</em></button>
+        <button class="flight-start" id="flight-start">TAKE OFF</button>
+      </div>
+      <div class="flight-panel" id="flight-panel">
+        <h2 id="flight-panel-title">PAPER FLIGHT</h2>
+        <p id="flight-panel-copy">속도와 정확도를 올려 더 멀리 날려보세요.</p>
+        <div class="flight-score-row">
+          <div class="flight-score-box"><small>LAST</small><b id="flight-last">0m</b></div>
+          <div class="flight-score-box"><small>EARNED</small><b id="flight-earned">0</b></div>
+        </div>
+        <button id="flight-panel-start">TAKE OFF</button>
+      </div>
+    </div>
+  </div>
 
   <!-- EXIT -->
   <div id="exit-btn">← 메뉴</div>
@@ -1112,7 +1208,7 @@ function setGlow(entry,on){
 // ══════════════════════════════════════════════════
 // GAME STATE
 // ══════════════════════════════════════════════════
-let phase='menu';
+let phase='hub';
 let lvIdx=0,lives=5,maxLiv=5,selId=null;
 let escaped=0,shk=0;
 let opening=false,openT=0;
@@ -1253,7 +1349,11 @@ function showUI(which){
   document.getElementById('exit-btn').style.display='none';
   document.getElementById('multi-screen').classList.remove('on');
   document.getElementById('multi-result').classList.remove('on');
-  if(which==='menu'){
+  document.getElementById('game-select').classList.remove('on');
+  document.getElementById('flight-game').classList.remove('on');
+  if(which==='hub'){
+    document.getElementById('game-select').classList.add('on');
+  }else if(which==='menu'){
     document.getElementById('menu').classList.remove('hidden');
     document.getElementById('coin-pill').style.display='flex';
   }else if(which==='hud'){
@@ -1275,6 +1375,8 @@ function showUI(which){
     document.getElementById('multi-lobby-card').style.display='block';
   }else if(which==='multi-result'){
     document.getElementById('multi-result').classList.add('on');
+  }else if(which==='flight'){
+    document.getElementById('flight-game').classList.add('on');
   }
 }
 
@@ -1703,6 +1805,190 @@ function showMultiResult(){
 })();
 
 // ══════════════════════════════════════════════════
+
+// PAPER FLIGHT MINI GAME
+const flightCanvas=document.getElementById('flight-canvas');
+const flightCtx=flightCanvas.getContext('2d');
+const FLIGHT_SAVE_KEY='paperFlightMiniV1';
+const flight={
+  w:innerWidth,h:innerHeight,dpr:1,running:false,ended:false,touching:false,
+  t:0,distance:0,lastDistance:0,best:0,stars:0,earned:0,scoreStars:0,
+  speedLv:1,accLv:1,energy:100,planeX:innerWidth/2,targetX:innerWidth/2,lastPlaneX:innerWidth/2,
+  spawnTimer:0,ringTimer:0,cloudTimer:0,items:[],clouds:[],sparkles:[],shake:0
+};
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function flightSpeedCost(){return flight.speedLv>=10?null:70+flight.speedLv*45;}
+function flightAccCost(){return flight.accLv>=10?null:65+flight.accLv*40;}
+function loadFlightSave(){
+  try{
+    const s=JSON.parse(localStorage.getItem(FLIGHT_SAVE_KEY)||'{}');
+    flight.best=s.best||0;flight.stars=s.stars||0;flight.speedLv=s.speedLv||1;flight.accLv=s.accLv||1;
+  }catch(e){}
+}
+function saveFlight(){
+  localStorage.setItem(FLIGHT_SAVE_KEY,JSON.stringify({best:flight.best,stars:flight.stars,speedLv:flight.speedLv,accLv:flight.accLv}));
+}
+function updateFlightUI(){
+  document.getElementById('flight-dist').textContent=Math.floor(flight.distance)+'m';
+  document.getElementById('flight-best').textContent=Math.floor(flight.best)+'m';
+  document.getElementById('flight-stars').textContent=flight.stars;
+  document.getElementById('flight-speed-lv').textContent='Lv.'+flight.speedLv;
+  document.getElementById('flight-acc-lv').textContent='Lv.'+flight.accLv;
+  const sc=flightSpeedCost(),ac=flightAccCost();
+  document.getElementById('flight-speed-cost').textContent=sc===null?'MAX':sc;
+  document.getElementById('flight-acc-cost').textContent=ac===null?'MAX':ac;
+  document.getElementById('flight-up-speed').disabled=sc===null||flight.stars<sc||flight.running;
+  document.getElementById('flight-up-accuracy').disabled=ac===null||flight.stars<ac||flight.running;
+  document.getElementById('flight-energy-fill').style.width=clamp(flight.energy,0,100)+'%';
+}
+function resizeFlight(){
+  const dpr=Math.min(devicePixelRatio||1,2);
+  flight.dpr=dpr;flight.w=innerWidth;flight.h=innerHeight;
+  flightCanvas.width=Math.floor(flight.w*dpr);
+  flightCanvas.height=Math.floor(flight.h*dpr);
+  flightCanvas.style.width=flight.w+'px';
+  flightCanvas.style.height=flight.h+'px';
+  flightCtx.setTransform(dpr,0,0,dpr,0,0);
+  flight.planeX=clamp(flight.planeX,44,flight.w-44);
+  flight.targetX=clamp(flight.targetX,44,flight.w-44);
+}
+function resetFlightRound(){
+  resizeFlight();
+  flight.running=false;flight.ended=false;flight.t=0;flight.distance=0;flight.earned=0;flight.scoreStars=0;
+  flight.energy=100;flight.items.length=0;flight.sparkles.length=0;flight.clouds.length=0;flight.shake=0;
+  flight.spawnTimer=.45;flight.ringTimer=.9;flight.cloudTimer=0;flight.planeX=flight.w/2;flight.targetX=flight.planeX;flight.lastPlaneX=flight.planeX;
+  for(let i=0;i<8;i++)flight.clouds.push({x:Math.random()*flight.w,y:Math.random()*flight.h,r:28+Math.random()*52,s:.35+Math.random()*.7});
+  updateFlightUI();renderFlight();
+}
+function openFlightGame(){
+  closeMultiWs();clearPreview();closeLevelSelect();
+  phase='flight';controls.autoRotate=false;showUI('flight');
+  document.getElementById('flight-panel').classList.remove('hidden');
+  document.getElementById('flight-panel-title').textContent='PAPER FLIGHT';
+  document.getElementById('flight-panel-copy').textContent='속도와 정확도를 올려 더 멀리 날려보세요.';
+  document.getElementById('flight-panel-start').textContent='TAKE OFF';
+  resetFlightRound();
+}
+function startFlightRound(){
+  if(phase!=='flight')openFlightGame();
+  resetFlightRound();
+  flight.running=true;flight.ended=false;
+  document.getElementById('flight-panel').classList.add('hidden');
+  document.getElementById('flight-start').textContent='RESTART';
+}
+function endFlightRound(){
+  if(!flight.running)return;
+  flight.running=false;flight.ended=true;flight.lastDistance=Math.floor(flight.distance);
+  const earned=Math.max(12,Math.floor(flight.distance/38)+flight.scoreStars*6);
+  flight.earned=earned;flight.stars+=earned;
+  if(flight.distance>flight.best)flight.best=Math.floor(flight.distance);
+  saveFlight();updateFlightUI();
+  document.getElementById('flight-last').textContent=flight.lastDistance+'m';
+  document.getElementById('flight-earned').textContent=earned;
+  document.getElementById('flight-panel-title').textContent='FLIGHT LOG';
+  document.getElementById('flight-panel-copy').textContent='새 별을 모아 다음 비행을 더 빠르고 안정적으로 만드세요.';
+  document.getElementById('flight-panel-start').textContent='AGAIN';
+  document.getElementById('flight-panel').classList.remove('hidden');
+  document.getElementById('flight-start').textContent='TAKE OFF';
+}
+function buyFlightSpeed(){const c=flightSpeedCost();if(c!==null&&flight.stars>=c&&!flight.running){flight.stars-=c;flight.speedLv++;saveFlight();updateFlightUI();}}
+function buyFlightAccuracy(){const c=flightAccCost();if(c!==null&&flight.stars>=c&&!flight.running){flight.stars-=c;flight.accLv++;saveFlight();updateFlightUI();}}
+function flightPointerX(e){
+  const r=flightCanvas.getBoundingClientRect();
+  return clamp(e.clientX-r.left,38,r.width-38);
+}
+function addFlightSpark(x,y,color){
+  for(let i=0;i<8;i++)flight.sparkles.push({x,y,vx:(Math.random()-.5)*140,vy:(Math.random()-.5)*120,life:.45+Math.random()*.25,c:color});
+}
+function spawnFlightItem(type){
+  const margin=42;
+  flight.items.push({type,x:margin+Math.random()*(flight.w-margin*2),y:-45,r:type==='ring'?27:30,hit:false,spin:Math.random()*6.28});
+}
+function tickFlight(dt){
+  if(phase!=='flight')return;
+  flight.t+=dt;
+  const world=130+flight.speedLv*20;
+  flight.cloudTimer-=dt;
+  if(flight.cloudTimer<=0){flight.cloudTimer=.42+Math.random()*.35;flight.clouds.push({x:-60+Math.random()*(flight.w+120),y:-70,r:26+Math.random()*52,s:.28+Math.random()*.75});}
+  flight.clouds.forEach(c=>c.y+=world*dt*c.s*.32);
+  flight.clouds=flight.clouds.filter(c=>c.y<c.r+flight.h+90);
+  if(!flight.running){flight.planeX+=(flight.targetX-flight.planeX)*Math.min(1,dt*6);return;}
+  flight.distance+=(14+flight.speedLv*3.8)*dt;
+  flight.energy-=dt*(5.8+flight.speedLv*.2);
+  flight.spawnTimer-=dt;flight.ringTimer-=dt;
+  if(flight.spawnTimer<=0){flight.spawnTimer=Math.max(.42,1.2-flight.speedLv*.05);spawnFlightItem(Math.random()<.66?'gust':'wall');}
+  if(flight.ringTimer<=0){flight.ringTimer=Math.max(.58,1.7-flight.speedLv*.06);spawnFlightItem('ring');}
+  const wind=(Math.sin(flight.t*1.7)+Math.sin(flight.t*3.1)*.45)*(22-flight.accLv*1.65);
+  const control=5.4+flight.accLv*.75;
+  flight.lastPlaneX=flight.planeX;
+  flight.planeX+=(flight.targetX+wind-flight.planeX)*Math.min(1,dt*control);
+  flight.planeX=clamp(flight.planeX,34,flight.w-34);
+  const py=flight.h*.72;
+  flight.items.forEach(it=>{
+    it.y+=world*dt*(it.type==='ring'?.98:1.08);
+    it.spin+=dt*2.2;
+    if(!it.hit){
+      const dx=it.x-flight.planeX,dy=it.y-py;
+      const rr=it.type==='ring'?38:32-(flight.accLv*.75);
+      if(dx*dx+dy*dy<rr*rr){
+        it.hit=true;
+        if(it.type==='ring'){
+          flight.energy=clamp(flight.energy+11,0,100);flight.scoreStars++;addFlightSpark(it.x,it.y,'#ffd166');
+        }else{
+          flight.energy-=it.type==='wall'?23:16;flight.shake=.18;addFlightSpark(it.x,it.y,'#ff7a59');
+        }
+      }
+    }
+  });
+  flight.items=flight.items.filter(it=>it.y<flight.h+70&&!it.hit);
+  flight.sparkles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;});
+  flight.sparkles=flight.sparkles.filter(p=>p.life>0);
+  if(flight.shake>0)flight.shake=Math.max(0,flight.shake-dt);
+  updateFlightUI();
+  if(flight.energy<=0)endFlightRound();
+}
+function drawCloud(c){
+  flightCtx.save();flightCtx.globalAlpha=.55;flightCtx.fillStyle='#ffffff';
+  flightCtx.beginPath();flightCtx.arc(c.x,c.y,c.r*.55,0,Math.PI*2);flightCtx.arc(c.x+c.r*.38,c.y+c.r*.05,c.r*.42,0,Math.PI*2);flightCtx.arc(c.x-c.r*.38,c.y+c.r*.1,c.r*.38,0,Math.PI*2);flightCtx.fill();flightCtx.restore();
+}
+function drawFlightPlane(x,y){
+  const bank=clamp((x-flight.lastPlaneX)*.035,-.55,.55);
+  flightCtx.save();flightCtx.translate(x,y);flightCtx.rotate(bank);
+  flightCtx.shadowColor='rgba(15,45,63,.22)';flightCtx.shadowBlur=18;flightCtx.shadowOffsetY=14;
+  flightCtx.fillStyle='#ffffff';flightCtx.beginPath();flightCtx.moveTo(0,-30);flightCtx.lineTo(27,26);flightCtx.lineTo(0,12);flightCtx.lineTo(-27,26);flightCtx.closePath();flightCtx.fill();
+  flightCtx.shadowBlur=0;flightCtx.fillStyle='#d7f4ff';flightCtx.beginPath();flightCtx.moveTo(0,-30);flightCtx.lineTo(0,12);flightCtx.lineTo(27,26);flightCtx.closePath();flightCtx.fill();
+  flightCtx.strokeStyle='rgba(15,45,63,.18)';flightCtx.lineWidth=2;flightCtx.beginPath();flightCtx.moveTo(0,-30);flightCtx.lineTo(0,12);flightCtx.stroke();
+  flightCtx.restore();
+}
+function renderFlight(){
+  if(!flightCtx)return;
+  const sx=flight.shake?(Math.random()-.5)*10*flight.shake:0,sy=flight.shake?(Math.random()-.5)*10*flight.shake:0;
+  flightCtx.save();flightCtx.clearRect(0,0,flight.w,flight.h);flightCtx.translate(sx,sy);
+  const g=flightCtx.createLinearGradient(0,0,0,flight.h);g.addColorStop(0,'#bdf3ff');g.addColorStop(.55,'#f8fdff');g.addColorStop(1,'#ffd8a8');flightCtx.fillStyle=g;flightCtx.fillRect(-20,-20,flight.w+40,flight.h+40);
+  flightCtx.fillStyle='rgba(6,214,160,.12)';
+  for(let i=0;i<7;i++){const y=((flight.t*55+i*120)% (flight.h+140))-80;flightCtx.fillRect(0,y,flight.w,2);}
+  flight.clouds.forEach(drawCloud);
+  flight.items.forEach(it=>{
+    flightCtx.save();flightCtx.translate(it.x,it.y);flightCtx.rotate(it.spin);
+    if(it.type==='ring'){
+      flightCtx.strokeStyle='#ffd166';flightCtx.lineWidth=7;flightCtx.globalAlpha=.95;flightCtx.beginPath();flightCtx.arc(0,0,it.r,0,Math.PI*2);flightCtx.stroke();flightCtx.strokeStyle='rgba(255,255,255,.7)';flightCtx.lineWidth=2;flightCtx.stroke();
+    }else if(it.type==='wall'){
+      flightCtx.fillStyle='#ff7a59';flightCtx.strokeStyle='#0f2d3f';flightCtx.lineWidth=3;flightCtx.beginPath();flightCtx.roundRect(-26,-22,52,44,8);flightCtx.fill();flightCtx.stroke();
+    }else{
+      flightCtx.strokeStyle='#1b6d74';flightCtx.lineWidth=5;flightCtx.globalAlpha=.8;for(let a=0;a<3;a++){flightCtx.beginPath();flightCtx.arc(0,0,12+a*8,Math.PI*.15,Math.PI*1.65);flightCtx.stroke();}
+    }
+    flightCtx.restore();
+  });
+  flight.sparkles.forEach(p=>{flightCtx.globalAlpha=clamp(p.life*2,0,1);flightCtx.fillStyle=p.c;flightCtx.beginPath();flightCtx.arc(p.x,p.y,3+p.life*3,0,Math.PI*2);flightCtx.fill();});
+  flightCtx.globalAlpha=1;drawFlightPlane(flight.planeX,flight.h*.72);
+  flightCtx.restore();
+}
+flightCanvas.addEventListener('pointerdown',e=>{if(phase!=='flight')return;flight.touching=true;flight.targetX=flightPointerX(e);flightCanvas.setPointerCapture?.(e.pointerId);if(!flight.running&&!flight.ended)startFlightRound();});
+flightCanvas.addEventListener('pointermove',e=>{if(phase==='flight'&&flight.touching)flight.targetX=flightPointerX(e);});
+flightCanvas.addEventListener('pointerup',e=>{flight.touching=false;flightCanvas.releasePointerCapture?.(e.pointerId);});
+flightCanvas.addEventListener('pointercancel',()=>{flight.touching=false;});
+window.addEventListener('keydown',e=>{if(phase!=='flight')return;if(e.key==='ArrowLeft')flight.targetX=clamp(flight.targetX-48,38,flight.w-38);if(e.key==='ArrowRight')flight.targetX=clamp(flight.targetX+48,38,flight.w-38);});
+loadFlightSave();
 // INPUT
 // ══════════════════════════════════════════════════
 function onTap(cx,cy){
@@ -1737,9 +2023,18 @@ canvas.addEventListener('pointercancel',()=>{pDown=null;pMoved=false;});
 //  and touchend fired for the same finger tap, counting as two taps in <360ms.)
 
 // Buttons
+document.getElementById('pick-escape').onclick=()=>goMenu();
+document.getElementById('pick-flight').onclick=()=>openFlightGame();
+document.getElementById('flight-back').onclick=()=>goHub();
+document.getElementById('flight-start').onclick=()=>startFlightRound();
+document.getElementById('flight-panel-start').onclick=()=>startFlightRound();
+document.getElementById('flight-up-speed').onclick=()=>buyFlightSpeed();
+document.getElementById('flight-up-accuracy').onclick=()=>buyFlightAccuracy();
+
 document.getElementById('btn-start').onclick=()=>openLevelSelect();
 document.getElementById('btn-cont').onclick=()=>loadLevel(progress);
 document.getElementById('btn-shop').onclick=()=>{phase='shop';showUI('shop');renderShopGrid();controls.autoRotate=true;};
+document.getElementById('btn-hub').onclick=()=>goHub();
 document.getElementById('btn-multi').onclick=()=>openMultiplayer();
 document.getElementById('launch-btn').onclick=()=>{if(selId){launchArrow(selId);resetIdle();}};
 document.getElementById('btn-next').onclick=()=>loadLevel(lvIdx+1);
@@ -1762,6 +2057,16 @@ document.getElementById('mr-again').onclick=()=>{
   startMultiCountdown();
 };
 
+function goHub(){
+  phase='hub';clearPreview();
+  closeMultiWs();closeLevelSelect();
+  document.getElementById('multi-hud').classList.remove('on');
+  document.getElementById('multi-countdown').classList.remove('on');
+  document.getElementById('pbar').style.display='block';
+  document.getElementById('flight-panel').classList.add('hidden');
+  controls.autoRotate=true;controls.autoRotateSpeed=1.3;
+  updateCoins();initDemo();showUI('hub');
+}
 function goMenu(){
   phase='menu';clearPreview();
   closeLevelSelect();
@@ -1782,16 +2087,18 @@ function loop(){
   requestAnimationFrame(loop);
   const dt=Math.min(clk.getDelta(),0.05);
   if(shk>0){shk-=dt*3;const s=shk*0.07;camera.position.x+=(Math.random()-.5)*s;camera.position.y+=(Math.random()-.5)*s;}
-  if(phase==='menu'){tickDemo(dt);}
+  if(phase==='menu'||phase==='hub'){tickDemo(dt);}
   else if(phase==='playing'||phase==='multi-playing'){
     if(opening){const el=Date.now()/1000-openT;let done=true;arrows.forEach(a=>{const t=(el-a.oDelay)/0.55;if(t<0){a.root.position.copy(a.oStart);done=false;}else if(t<1){const e=1-Math.pow(1-Math.min(t,1),3);a.root.position.lerpVectors(a.oStart,a.bp,e);done=false;}else{a.root.position.copy(a.bp);}});if(done)opening=false;}
     else{arrows.forEach(a=>tickArrow(a,dt));}
     tickIdle(dt);
   }else if(phase==='win'||phase==='over'||phase==='multi-result'||phase==='multi-done'){arrows.forEach(a=>tickArrow(a,dt*0.35));}
+  tickFlight(dt);
+  renderFlight();
   controls.update();
   renderer.render(scene,camera);
 }
-window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);resizeFlight();});
 
 // ══════════════════════════════════════════════════
 // INIT
@@ -1801,7 +2108,7 @@ applyMap(activeMap);
 updateCoins();
 document.getElementById('btn-cont').style.display=progress>0?'flex':'none';
 document.getElementById('level-select').style.display='none';
-showUI('menu');
+showUI('hub');
 initDemo();
 loop();
 </script>

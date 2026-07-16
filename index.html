@@ -306,10 +306,80 @@ canvas{display:block;position:fixed;inset:0;width:100%!important;height:100%!imp
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"}}
 </script>
+<!-- Firebase Auth + Firestore (compat v10) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+// ── FIREBASE CONFIG ──────────────────────────────────────────────────────────
+// Firebase Console(https://console.firebase.google.com)에서 프로젝트 설정 → 앱 추가 → 웹앱
+// "SDK 설정 및 구성"의 firebaseConfig 값을 아래에 붙여넣으세요.
+const firebaseConfig = {
+  apiKey: "AIzaSyDIsPTKHNH1om2-qZPoSUKyczOw8cKwkPg",
+  authDomain: "d-game-2919b.firebaseapp.com",
+  projectId: "d-game-2919b",
+  storageBucket: "d-game-2919b.firebasestorage.app",
+  messagingSenderId: "441151597074",
+  appId: "1:441151597074:web:aa01dfca266775d58686cb",
+  measurementId: "G-0QJN573P8T"
+};
+const _FB_READY=_FB_CFG.apiKey!=="YOUR_API_KEY";
+if(_FB_READY){firebase.initializeApp(_FB_CFG);}
+window.fbAuth=_FB_READY?firebase.auth():null;
+window.fbDb=_FB_READY?firebase.firestore():null;
+window.fbUser=null;
+</script>
+<style>
+/* ── AUTH UI ─────────────────────────────────────────────────────────────── */
+#auth-ov{position:fixed;inset:0;z-index:9999;background:rgba(6,6,26,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px 28px;transition:opacity .4s}
+#auth-ov h2{color:#fff;font-size:28px;font-weight:900;letter-spacing:5px;text-shadow:0 0 32px rgba(76,201,240,0.7);text-align:center}
+#auth-ov .auth-sub{color:rgba(170,170,220,0.7);font-size:14px;text-align:center;line-height:1.75;max-width:300px}
+.btn-ggl{background:#fff;color:#1a1a2e;display:flex;align-items:center;gap:10px;padding:15px 28px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;border:none;width:100%;max-width:300px;justify-content:center;box-shadow:0 4px 22px rgba(0,0,0,0.35);transition:transform .12s}
+.btn-ggl:active{transform:scale(0.96)}
+.btn-gst{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.65);padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;width:100%;max-width:300px;text-align:center;transition:transform .12s}
+.btn-gst:active{transform:scale(0.96)}
+#auth-loading{color:rgba(76,201,240,0.7);font-size:13px;display:none;letter-spacing:1px}
+#user-pill{position:absolute;top:14px;left:14px;background:rgba(10,10,35,0.85);border:1px solid rgba(255,255,255,0.14);border-radius:50px;padding:6px 14px 6px 8px;display:none;align-items:center;gap:8px;pointer-events:all;cursor:pointer;backdrop-filter:blur(10px);z-index:200}
+#user-pill img{width:26px;height:26px;border-radius:50%;object-fit:cover;background:linear-gradient(135deg,#4361ee,#4cc9f0)}
+#user-pill .up-col{display:flex;flex-direction:column;gap:1px}
+#user-pill .up-name{color:#fff;font-size:12px;font-weight:700;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#user-pill .up-badge{font-size:10px;color:rgba(76,201,240,0.75)}
+#am-ov{position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,0.65);display:none;align-items:center;justify-content:center;pointer-events:all}
+#am-ov.show{display:flex}
+.am-card{background:rgba(10,10,36,0.98);border:1px solid rgba(255,255,255,0.12);border-radius:26px;padding:30px 24px;width:min(340px,90vw);display:flex;flex-direction:column;align-items:center;gap:14px}
+#am-avatar{width:68px;height:68px;border-radius:50%;border:2px solid rgba(76,201,240,0.35);background:linear-gradient(135deg,#4361ee,#4cc9f0)}
+.am-name{color:#fff;font-size:18px;font-weight:800}
+.am-email{color:rgba(170,170,220,0.55);font-size:12px}
+.am-sync-box{background:rgba(76,201,240,0.08);border:1px solid rgba(76,201,240,0.2);border-radius:12px;padding:10px 16px;color:rgba(76,201,240,0.85);font-size:13px;text-align:center;width:100%;line-height:1.5}
+.btn-lo{background:rgba(255,100,100,0.12);border:1px solid rgba(255,100,100,0.3);color:#ff6b6b;padding:13px;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;width:100%}
+.btn-cam{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);padding:12px;border-radius:50px;font-size:14px;cursor:pointer;width:100%}
+</style>
 </head>
 <body>
 <canvas id="c"></canvas>
 <div id="ui">
+  <!-- AUTH OVERLAY -->
+  <div id="auth-ov">
+    <h2>3D ESCAPE</h2>
+    <p class="auth-sub">Google 계정으로 로그인하면 랭크·기록·진행상황이<br>클라우드에 저장됩니다.</p>
+    <button class="btn-ggl" id="btn-ggl">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.96 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Google 계정으로 로그인
+    </button>
+    <button class="btn-gst" id="btn-gst">게스트로 시작 (저장 없음)</button>
+    <div id="auth-loading">로그인 중...</div>
+  </div>
+  <!-- ACCOUNT MODAL -->
+  <div id="am-ov">
+    <div class="am-card">
+      <img id="am-avatar" src="" alt="avatar">
+      <div class="am-name" id="am-name"></div>
+      <div class="am-email" id="am-email"></div>
+      <div class="am-sync-box" id="am-sync-info">☁️ 랭크·기록·진행상황이 클라우드에 저장됩니다.</div>
+      <button class="btn-lo" id="btn-lo">로그아웃</button>
+      <button class="btn-cam" id="btn-cam">닫기</button>
+    </div>
+  </div>
   <!-- MINI GAME SELECT -->
   <div id="game-select">
     <div class="hub-shell">
@@ -368,6 +438,13 @@ canvas{display:block;position:fixed;inset:0;width:100%!important;height:100%!imp
     <div id="menu-top">
       <h1>3D ESCAPE</h1>
       <div class="tag">PUZZLE GAME</div>
+    </div>
+    <div id="user-pill">
+      <img id="up-avatar" src="" alt="">
+      <div class="up-col">
+        <span class="up-name" id="up-name">게스트</span>
+        <span class="up-badge" id="up-badge">☁️ 저장 없음</span>
+      </div>
     </div>
     <div id="menu-bottom">
       <button class="btn btn-primary" id="btn-start">▶ 게임 시작</button>
@@ -854,6 +931,7 @@ function doSave(){
     localStorage.setItem('e3_map',activeMap);
     localStorage.setItem('e3_clv',JSON.stringify(clearedLevels));
   }catch{}
+  if(window.fbUser&&window.fbDb)fbCloudSave();
 }
 function reward(idx,liv,maxLiv){
   const b=idx<10?10+idx*9:95+(idx-9)*15;
@@ -1805,6 +1883,7 @@ function loadRankState(){
 
 function saveRankState(){
   try{localStorage.setItem(RANK_SAVE_KEY,JSON.stringify(rankState));}catch{}
+  if(window.fbUser&&window.fbDb)fbCloudSave();
 }
 
 function getRankTier(points=rankState.points){
@@ -2361,6 +2440,7 @@ function loadFlightSave(){
 }
 function saveFlight(){
   localStorage.setItem(FLIGHT_SAVE_KEY,JSON.stringify({best:flight.best,stars:flight.stars,speedLv:flight.speedLv,accLv:flight.accLv}));
+  if(window.fbUser&&window.fbDb)fbCloudSave();
 }
 function updateFlightUI(){
   document.getElementById('flight-dist').textContent=Math.floor(flight.distance)+'m';
@@ -2647,6 +2727,166 @@ function loop(){
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);resizeFlight();});
 
 // ══════════════════════════════════════════════════
+// FIREBASE AUTH + CLOUD SYNC
+// ══════════════════════════════════════════════════
+
+function fbCloudSave(){
+  if(!window.fbUser||!window.fbDb)return;
+  try{
+    window.fbDb.collection('users').doc(window.fbUser.uid).set({
+      coins,
+      owned:[...owned],
+      activeSkin,
+      progress,
+      ownedMaps:[...ownedMaps],
+      activeMap,
+      clearedLevels,
+      rankState:{...rankState},
+      flightData:{best:flight.best,stars:flight.stars,speedLv:flight.speedLv,accLv:flight.accLv},
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true}).catch(()=>{});
+  }catch{}
+}
+
+async function fbCloudLoad(){
+  if(!window.fbUser||!window.fbDb)return;
+  try{
+    const snap=await window.fbDb.collection('users').doc(window.fbUser.uid).get();
+    if(!snap.exists)return;
+    const d=snap.data();
+    if(d.coins!==undefined)coins=d.coins;
+    if(d.owned)owned=new Set(d.owned);
+    if(d.activeSkin)activeSkin=d.activeSkin;
+    if(d.progress!==undefined)progress=d.progress;
+    if(d.ownedMaps)ownedMaps=new Set(d.ownedMaps);
+    if(d.activeMap)activeMap=d.activeMap;
+    if(d.clearedLevels)clearedLevels=d.clearedLevels;
+    if(d.rankState)rankState={...getRankDefaults(),...d.rankState};
+    if(d.flightData){
+      flight.best=d.flightData.best||0;flight.stars=d.flightData.stars||0;
+      flight.speedLv=d.flightData.speedLv||1;flight.accLv=d.flightData.accLv||1;
+    }
+    // localStorage 동기화
+    try{
+      localStorage.setItem('e3_coins',String(coins));
+      localStorage.setItem('e3_owned',JSON.stringify([...owned]));
+      localStorage.setItem('e3_skin',activeSkin);
+      localStorage.setItem('e3_prog',String(progress));
+      localStorage.setItem('e3_mown',JSON.stringify([...ownedMaps]));
+      localStorage.setItem('e3_map',activeMap);
+      localStorage.setItem('e3_clv',JSON.stringify(clearedLevels));
+      localStorage.setItem(RANK_SAVE_KEY,JSON.stringify(rankState));
+      localStorage.setItem(FLIGHT_SAVE_KEY,JSON.stringify({best:flight.best,stars:flight.stars,speedLv:flight.speedLv,accLv:flight.accLv}));
+    }catch{}
+    updateCoins();
+    updateFlightUI();
+    applyMap(activeMap);
+    document.getElementById('btn-cont').style.display=progress>0?'flex':'none';
+  }catch(e){console.warn('[Auth] Cloud load failed:',e);}
+}
+
+function _setUserPill(user){
+  const pill=document.getElementById('user-pill');
+  const av=document.getElementById('up-avatar');
+  const nm=document.getElementById('up-name');
+  const badge=document.getElementById('up-badge');
+  if(user){
+    av.src=user.photoURL||'';
+    nm.textContent=user.displayName||user.email||'사용자';
+    badge.textContent='☁️ 클라우드 저장 중';
+    badge.style.color='rgba(76,201,240,0.85)';
+  }else{
+    av.src='';
+    nm.textContent='게스트';
+    badge.textContent='☁️ 저장 없음';
+    badge.style.color='rgba(170,170,220,0.55)';
+  }
+  pill.style.display='flex';
+}
+
+function _hideAuthOv(){
+  const ov=document.getElementById('auth-ov');
+  ov.style.opacity='0';
+  ov.style.pointerEvents='none';
+  setTimeout(()=>ov.style.display='none',420);
+}
+
+function _showAccountModal(show){
+  const ov=document.getElementById('am-ov');
+  ov.classList.toggle('show',show);
+  if(show&&window.fbUser){
+    document.getElementById('am-avatar').src=window.fbUser.photoURL||'';
+    document.getElementById('am-name').textContent=window.fbUser.displayName||'사용자';
+    document.getElementById('am-email').textContent=window.fbUser.email||'';
+    const tier=getRankTier();
+    const pts=rankState.points;
+    document.getElementById('am-sync-info').innerHTML=
+      `☁️ 클라우드 저장 활성화됨<br><span style="font-size:11px;opacity:.7">${tier.name} ${pts}점 · 클리어 ${progress}스테이지</span>`;
+  }
+}
+
+async function _googleLogin(){
+  if(!window.fbAuth)return;
+  document.getElementById('auth-loading').style.display='block';
+  document.getElementById('btn-ggl').style.opacity='0.6';
+  try{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    await window.fbAuth.signInWithPopup(provider);
+    // onAuthStateChanged가 이후 처리
+  }catch(e){
+    document.getElementById('auth-loading').style.display='none';
+    document.getElementById('btn-ggl').style.opacity='1';
+    if(e.code!=='auth/popup-closed-by-user')
+      alert('로그인 실패: '+e.message);
+  }
+}
+
+async function _doLogout(){
+  if(window.fbAuth){await window.fbAuth.signOut();}
+  window.fbUser=null;
+  _setUserPill(null);
+  _showAccountModal(false);
+}
+
+function initAuth(){
+  // 버튼 이벤트
+  document.getElementById('btn-ggl').addEventListener('click',_googleLogin);
+  document.getElementById('btn-gst').addEventListener('click',()=>{_hideAuthOv();_setUserPill(null);});
+  document.getElementById('user-pill').addEventListener('click',()=>{
+    if(window.fbUser){_showAccountModal(true);}
+    else{
+      const ov=document.getElementById('auth-ov');
+      ov.style.display='flex';
+      ov.style.opacity='1';
+      ov.style.pointerEvents='all';
+    }
+  });
+  document.getElementById('btn-lo').addEventListener('click',_doLogout);
+  document.getElementById('btn-cam').addEventListener('click',()=>_showAccountModal(false));
+  document.getElementById('am-ov').addEventListener('click',(e)=>{
+    if(e.target===document.getElementById('am-ov'))_showAccountModal(false);
+  });
+
+  if(!window.fbAuth){
+    // Firebase 미설정 → 게스트 모드로 바로 시작
+    _hideAuthOv();
+    _setUserPill(null);
+    return;
+  }
+
+  // 인증 상태 감지 (이미 로그인되어 있으면 자동으로 처리)
+  window.fbAuth.onAuthStateChanged(async(user)=>{
+    window.fbUser=user;
+    if(user){
+      _hideAuthOv();
+      _setUserPill(user);
+      await fbCloudLoad();
+    }
+    // user가 null이면 오버레이 계속 표시
+  });
+}
+
+// ══════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════
 loadSave();
@@ -2657,6 +2897,7 @@ document.getElementById('level-select').style.display='none';
 showUI('menu');
 initDemo();
 loop();
+initAuth();
 </script>
 </body>
 </html>
